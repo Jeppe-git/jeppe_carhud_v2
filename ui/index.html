@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css'
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <style>
+    html {
+      overflow-y: hidden;
+      -webkit-touch-callout: none;
+      /* iOS Safari */
+      -webkit-user-select: none;
+      /* Safari */
+      -khtml-user-select: none;
+      /* Konqueror HTML */
+      -moz-user-select: none;
+      /* Old versions of Firefox */
+      -ms-user-select: none;
+      /* Internet Explorer/Edge */
+      user-select: none;
+      /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <v-app style="background: transparent">
+      <v-main>
+        <v-scroll-x-transition>
+          <v-container v-show="windowShow == true">
+            <div class="carhud-wrapper">
+              <v-row>
+                <v-card flat style="background-color: rgba(128, 128, 128, 0.056)" :width="dashboardWidth">
+                  <v-row justify="center">
+                    <v-card-title class="ma-3">
+                      <h1 style="color: white;" class="font-weight-light"><strong>{{speed}}</strong> KM/H</h1>
+                    </v-card-title>
+                  </v-row>
+                  <v-card-actions class="d-flex">
+                    <v-icon :color=checkEngineColor() class="mx-3" :size="engineIcon">mdi-engine-outline</v-icon>
+                    <v-spacer></v-spacer>
+                    <v-icon :color=checkOilColor() class="mx-3" :size="oilIcon">mdi-oil</v-icon>
+                    <v-spacer></v-spacer>
+                    <v-icon color="white" class="mx-3" :size="warningIcon">mdi-alert-octagon-outline</v-icon>
+                  </v-card-actions>
+                  <v-card-actions class="d-flex">
+                    <v-progress-linear :height="fuelBar" :color=checkFuelColor() :value="fuel"></v-progress-linear>
+                    <v-icon :color=checkFuelColor() size="35">mdi-fuel</v-icon>
+                  </v-card-actions>
+                </v-card>
+              </v-row>
+            </div>
+          </v-container>
+        </v-scroll-x-transition>
+
+        <v-container v-show="configShow == true">
+          <div class="carhud-config">
+            <v-row>
+              <v-col>
+                <v-card color="blue-grey" width="500">
+                  <v-card-title>
+                    <h1 style="color: white;" class="font-weight-light">Carhud Config</h1>
+                  </v-card-title>
+                  <v-card-subtitle color="pink">
+                    BETA 1.0
+                  </v-card-subtitle>
+                  <v-row justify="center">
+                    <v-col>
+                      <v-form align="center">
+                        <h1 class="font-weight-light">Hastighetsmätare storlek</h1>
+                        <v-slider color="white" max="800" min="400" v-model="dashboardWidth"></v-slider>
+                        <h1 class="font-weight-light">Motorikon storlek</h1>
+                        <v-slider color="white" max="60" min="45" v-model="engineIcon"></v-slider>
+                        <h1 class="font-weight-light">Oljeikon storlek</h1>
+                        <v-slider color="white" max="60" min="45" v-model="oilIcon"></v-slider>
+                        <h1 class="font-weight-light">Varningslampa storlek</h1>
+                        <v-slider color="white" max="60" min="45" v-model="warningIcon"></v-slider>
+                        <h1 class="font-weight-light">Bensinmätare storlek</h1>
+                        <v-slider color="white" max="60" min="10" v-model="fuelBar"></v-slider>
+                      </v-form>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </v-col>
+            </v-row>
+          </div>
+        </v-container>
+      </v-main>
+    </v-app>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script src="App.js"></script>
+  <link rel="stylesheet" href="style.css">
+</body>
+
+</html>
+
+<style>
+  .carhud-wrapper {
+    position: fixed;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .carhud-config {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  h1 {
+    color: white;
+  }
+</style>
